@@ -6,33 +6,8 @@
 [![PyPI version](https://img.shields.io/pypi/v/spinepose.svg?style=for-the-badge)](https://pypi.org/project/spinepose/)
 [![License](https://img.shields.io/badge/License-CC--BY--NC--4.0-lightgrey.svg?style=for-the-badge)](LICENSE)
 
-<div style="display: flex; flex-wrap: nowrap; gap: 10px;">
-  <div style="flex: 0 0 59%; display: flex; flex-direction: column; gap: 10px;">
-    <div style="
-      width: 100%;
-      aspect-ratio: 16/9; 
-      background: url('data/demo/outputs/video1.gif') no-repeat center center;
-      background-size: cover;
-    ">
-    </div>
-    <div style="
-      width: 100%;
-      aspect-ratio: 16/9; 
-      background: url('data/demo/outputs/video2.gif') no-repeat center center;
-      background-size: cover;
-    ">
-    </div>
-  </div>
-  <div style="
-    flex: 0 0 38%;
-    background: url('data/demo/outputs/video3.gif') no-repeat center center; 
-    background-size: cover;
-    aspect-ratio: 4/5; /* Adjust ratio to your preference */
-  ">
-  </div>
-</div>
-<p align="center"><em>Demo videos are sourced from <a href="https://www.pexels.com/">Pexels.com</a>.</em></p>
-</div>
+![](data/demo/outputs/video1.gif)
+![](data/demo/outputs/video2.gif)
 
 ---
 
