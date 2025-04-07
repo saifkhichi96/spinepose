@@ -8,6 +8,7 @@
 
 ![](data/demo/outputs/video1.gif)
 ![](data/demo/outputs/video2.gif)
+</div>
 
 ---
 
