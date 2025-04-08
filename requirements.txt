@@ -2,6 +2,6 @@ anytree
 numpy
 OneEuroFilter
 opencv-python
-onnxruntime-gpu
+onnxruntime
 torch
 tqdm

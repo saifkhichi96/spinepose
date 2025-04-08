@@ -17,7 +17,7 @@ def imshow(img, title="Image"):
     cv2.imshow(title, img)
 
 
-def infer_image(input_path, mode="large", output_path=None):
+def infer_image(input_path, mode="medium", output_path=None):
     model = SpinePoseEstimator(mode)
 
     img = cv2.imread(input_path)
@@ -35,7 +35,7 @@ def infer_image(input_path, mode="large", output_path=None):
         cv2.imwrite(output_path, vis_rgb)
 
 
-def infer_video(input_path, mode="large", use_emoothing=True, output_path=None):
+def infer_video(input_path, mode="medium", use_emoothing=True, output_path=None):
     cap = cv2.VideoCapture(input_path)
     if not cap.isOpened():
         raise ValueError(f"Cannot open video file {input_path}")
@@ -136,7 +136,8 @@ def main():
         "--mode",
         "-m",
         choices=["xlarge", "large", "medium", "small"],
-        default="large",
+        default="medium",
+        help="Model size. Choose from: xlarge, large, medium, small (default: medium)",
     )
     parser.add_argument(
         "--nosmooth",

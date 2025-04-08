@@ -35,6 +35,12 @@ We introduce SpineTrack, the first comprehensive dataset dedicated to 2D spine p
 pip install spinepose
 ```
 
+On Linux/Windows with CUDA available, install the GPU version:
+
+```bash
+pip install spinepose[gpu]
+```
+
 > [!NOTE]
 > For model training or reproducing the full pipeline, please refer to the [Training and Evaluation](#training-and-evaluation) section.
 
