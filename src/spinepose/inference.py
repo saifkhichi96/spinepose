@@ -17,11 +17,21 @@ def imshow(img, title="Image"):
     cv2.imshow(title, img)
 
 
-def infer_image(input_path, mode="medium", output_path=None):
+def infer_image(
+    input_path,
+    mode="medium",
+    spine_only=False,
+    output_path=None,
+):
     model = SpinePoseEstimator(mode)
 
     img = cv2.imread(input_path)
     keypoints, scores = model(img)
+
+    if spine_only and len(scores) > 0:
+        spine_ids = [36, 35, 18, 30, 29, 28, 27, 26, 19]
+        non_spine_ids = list(set(range(len(scores[0]))) - set(spine_ids))
+        scores[:, non_spine_ids] = 0
 
     # Show the keypoints on the image
     vis = model.visualize(img, keypoints, scores)
@@ -35,7 +45,13 @@ def infer_image(input_path, mode="medium", output_path=None):
         cv2.imwrite(output_path, vis_rgb)
 
 
-def infer_video(input_path, mode="medium", use_emoothing=True, output_path=None):
+def infer_video(
+    input_path,
+    mode="medium",
+    spine_only=False,
+    use_emoothing=True,
+    output_path=None,
+):
     cap = cv2.VideoCapture(input_path)
     if not cap.isOpened():
         raise ValueError(f"Cannot open video file {input_path}")
@@ -69,6 +85,12 @@ def infer_video(input_path, mode="medium", use_emoothing=True, output_path=None)
             break
 
         keypoints, scores = pose_tracker(img)
+
+        if spine_only and len(scores) > 0:
+            spine_ids = [36, 35, 18, 30, 29, 28, 27, 26, 19]
+            non_spine_ids = list(set(range(len(scores[0]))) - set(spine_ids))
+            scores[:, non_spine_ids] = 0
+
         vis = pose_tracker.visualize(img, keypoints, scores)
 
         # Display the result
@@ -144,6 +166,11 @@ def main():
         action="store_false",
         help="Disable keypoint smoothing for video inference (default: enabled)",
     )
+    parser.add_argument(
+        "--spine_only",
+        action="store_true",
+        help="Only show spine keypoints (default: show all keypoints)",
+    )
     args = parser.parse_args()
 
     if args.version:
@@ -155,12 +182,14 @@ def main():
         infer_image(
             args.input_path,
             args.mode,
+            spine_only=args.spine_only,
             output_path=args.output_path,
         )
     elif is_video(args.input_path):
         infer_video(
             args.input_path,
             args.mode,
+            spine_only=args.spine_only,
             use_emoothing=args.nosmooth,
             output_path=args.output_path,
         )
