@@ -2,9 +2,12 @@
 
 <div align="center">
 
-[![Conference](https://img.shields.io/badge/CVPRW-2025-6b8bc7.svg?style=for-the-badge)](https://cvpr2025.thecvf.com/)
-[![PyPI version](https://img.shields.io/pypi/v/spinepose.svg?style=for-the-badge)](https://pypi.org/project/spinepose/)
-[![License](https://img.shields.io/badge/License-CC--BY--NC--4.0-lightgrey.svg?style=for-the-badge)](LICENSE)
+[![Home](https://img.shields.io/badge/Project-Homepage-pink.svg)](https://saifkhichi.com/research/spinepose/)
+[![Home](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-gold.svg)](https://[saifkhichi.com/research/spinepose](https://doi.org/10.57967/hf/5114)/)
+[![arXiv](https://img.shields.io/badge/arXiv-2504.12345-B31B1B.svg)](#)
+[![Conference](https://img.shields.io/badge/CVPRW-2025-blue.svg)](https://cvpr2025.thecvf.com/)
+[![PyPI version](https://img.shields.io/pypi/v/spinepose.svg)](https://pypi.org/project/spinepose/)
+![PyPI - License](https://img.shields.io/pypi/l/spinepose)
 
 ![](data/demo/outputs/video1.gif)
 ![](data/demo/outputs/video2.gif)
@@ -24,7 +27,7 @@
 ---
 
 ## Abstract
-We introduce SpineTrack, the first comprehensive dataset dedicated to 2D spine pose estimation in unconstrained environments, addressing a critical gap in human pose analysis for sports and biomechanical applications. Existing pose datasets typically represent the spine with a single rigid segment, neglecting the detailed articulation required for precise analysis. To overcome this limitation, SpineTrack comprises two complementary components: SpineTrack-Real, a real-world dataset with high-fidelity spine annotations refined via an active learning pipeline, and SpineTrack-Unreal, a synthetic dataset generated using an Unreal Engine-based framework with accurate ground-truth labels. Additionally, we propose a novel biomechanical validation framework based on OpenSim to enforce anatomical consistency in the annotated keypoints. Complementing the dataset, our SpinePose model extends state-of-the-art body pose estimation networks through a teacher–student distillation approach and an anatomical regularization strategy, effectively incorporating detailed spine keypoints without sacrificing overall performance. Extensive experiments on standard benchmarks and sports-specific scenarios demonstrate that our approach significantly improves spine tracking accuracy while maintaining robust generalization.
+We present SpineTrack, the first comprehensive dataset for 2D spine pose estimation in unconstrained settings, addressing a crucial need in sports analytics, healthcare, and realistic animation. Existing pose datasets often simplify the spine to a single rigid segment, overlooking the nuanced articulation required for accurate motion analysis. In contrast, SpineTrack annotates nine detailed spinal keypoints across two complementary subsets: a synthetic set comprising 25k annotations created using Unreal Engine with biomechanical alignment through OpenSim, and a real-world set comprising over 33k annotations curated via an active learning pipeline that iteratively refines automated annotations with human feedback. This integrated approach ensures anatomically consistent labels at scale, even for challenging, in-the-wild images. We further introduce SpinePose, extending state-of-the-art body pose estimators using knowledge distillation and an anatomical regularization strategy to jointly predict body and spine keypoints. Our experiments in both general and sports-specific contexts validate the effectiveness of SpineTrack for precise spine pose estimation, establishing a robust foundation for future research in advanced biomechanical analysis and 3D spine reconstruction in the wild.
 
 ---
 
@@ -86,13 +89,50 @@ infer_video('path/to/video.mp4', 'output_video.mp4', use_smoothing=True)
 
 ## SpineTrack Dataset
 
-> [!NOTE]
-> Detailed dataset documentation will be added soon, including download links, annotation structure, and usage guidelines.
+SpineTrack is available on [HuggingFace](https://doi.org/10.57967/hf/5114). The dataset comprises:
+
+- **SpineTrack-Real**
+  A collection of real-world images annotated with nine spinal keypoints in addition to standard body joints. An active learning pipeline, combining pretrained neural annotators and human corrections, refines keypoints across diverse poses.
+
+- **SpineTrack-Unreal**
+  A synthetic subset rendered using Unreal Engine, paired with precise ground-truth from a biomechanically aligned OpenSim model. These synthetic images facilitate pretraining and complement real-world data.
+
+To download:
+
+```bash
+git lfs install
+git clone https://huggingface.co/datasets/saifkhichi96/spinetrack
+```
+
+Alternatively, use `wget` to download the dataset directly:
+
+```bash
+wget https://huggingface.co/datasets/saifkhichi96/spinetrack/resolve/main/annotations.zip
+wget https://huggingface.co/datasets/saifkhichi96/spinetrack/resolve/main/images.zip
+```
+
+In both cases, the dataset will download two zipped folders: `annotations` (24.8 MB) and `images` (19.4 GB), which can be unzipped to obtain the following structure:
+
+```plaintext
+spinetrack
+├── annotations/
+│   ├── person_keypoints_train-real-coco.json
+│   ├── person_keypoints_train-real-yoga.json
+│   ├── person_keypoints_train-unreal.json
+│   └── person_keypoints_val2017.json
+└── images/
+    ├── train-real-coco/
+    ├── train-real-yoga/
+    ├── train-unreal/
+    └── val2017/
+```
+
+All annotations are in COCO format and can be used with standard pose estimation libraries.
 
 ## Training and Evaluation
 
 > [!NOTE]
-> Step-by-step guide and scripts for reproducing our training pipelines, baseline models, and evaluation metrics will be provided in the future.
+> Detailed scripts for reproducing our training pipelines, baselines, and evaluation protocols will be provided soon.
 
 ---
 
