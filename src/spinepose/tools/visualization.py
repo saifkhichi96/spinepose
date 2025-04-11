@@ -70,9 +70,9 @@ def draw_mmpose(
             )
 
     stroke_color = (255, 255, 255)  # White
-    fill_color = (204, 51, 51)  # Crimson Red
     for i, kpt_info in keypoint_info.items():
         kpt = keypoints[i]
+        fill_color = kpt_info["color"]
 
         if vis_kpt[i]:
             center = (int(kpt[0]), int(kpt[1]))
