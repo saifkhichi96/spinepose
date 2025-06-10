@@ -49,7 +49,7 @@ def infer_video(
     input_path,
     mode="medium",
     spine_only=False,
-    use_emoothing=True,
+    use_smoothing=True,
     output_path=None,
 ):
     cap = cv2.VideoCapture(input_path)
@@ -61,7 +61,7 @@ def infer_video(
     pose_tracker = PoseTracker(
         SpinePoseEstimator,
         mode=mode,
-        smoothing=use_emoothing,
+        smoothing=use_smoothing,
         smoothing_freq=fps,
     )
 
@@ -190,7 +190,7 @@ def main():
             args.input_path,
             args.mode,
             spine_only=args.spine_only,
-            use_emoothing=args.nosmooth,
+            use_smoothing=args.nosmooth,
             output_path=args.output_path,
         )
 
